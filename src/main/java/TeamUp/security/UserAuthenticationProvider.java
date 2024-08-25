@@ -25,40 +25,40 @@ import lombok.RequiredArgsConstructor;
 @Component
 public class UserAuthenticationProvider {
 
-    @Value("${security.jwt.token.secret-key:secret-key}")
-    private String secretKey;
-
-    @Autowired
+	@Value("${security.jwt.token.secret-key:secret-key}")
+	private String secretKey;
+	
+	@Autowired
 	private UsuarioDAOimpl usuarioDAO;
-
-    @PostConstruct
-    protected void init() {
-        secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
-    }
-
-    public String createToken(String login) {
-        Date now = new Date();
-        Date validity = new Date(now.getTime() + 3600000); // 1 HORA
-
-        Algorithm algorithm = Algorithm.HMAC256(secretKey);
-        return JWT.create()
-                .withSubject(login)
-                .withIssuedAt(now)
-                .withExpiresAt(validity)
-                .sign(algorithm);
-    }
-
-    public Authentication validateToken(String token) throws Exception {
-    	try {
-    		Algorithm algorithm = Algorithm.HMAC256(secretKey);
-            JWTVerifier verifier = JWT.require(algorithm).build();
-            DecodedJWT decoded = verifier.verify(token);
-            UsuarioEntity user = usuarioDAO.obtenerUsuarioPorNombre(decoded.getSubject());
-
-            return new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
-            
-    	} catch (Exception e) {
+	
+	@PostConstruct
+	protected void init() {
+		secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
+	}
+	
+	public String createToken(String login) {
+		Date now = new Date();
+		Date validity = new Date(now.getTime() + 3600000); // 1 HORA
+		
+		Algorithm algorithm = Algorithm.HMAC256(secretKey);
+		return JWT.create()
+			.withSubject(login)
+			.withIssuedAt(now)
+			.withExpiresAt(validity)
+			.sign(algorithm);
+	}
+	
+	public Authentication validateToken(String token) throws Exception {
+		try {
+			Algorithm algorithm = Algorithm.HMAC256(secretKey);
+			JWTVerifier verifier = JWT.require(algorithm).build();
+			DecodedJWT decoded = verifier.verify(token);
+			UsuarioEntity user = usuarioDAO.obtenerUsuarioPorNombre(decoded.getSubject());
+			
+			return new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
+		
+		} catch (Exception e) {
 			throw new AccessDeniedException("Token expirado");
 		}
-    }
+	}
 }
