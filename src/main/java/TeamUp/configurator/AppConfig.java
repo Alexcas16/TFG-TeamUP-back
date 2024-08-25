@@ -25,17 +25,17 @@ import jakarta.persistence.EntityManagerFactory;
 public class AppConfig {
 	
 	private static final Long MAX_AGE = 3600L;
-    private static final int CORS_FILTER_ORDER = -102;
-
+	private static final int CORS_FILTER_ORDER = -102;
+	
 	@Bean
-    public DataSource datasource() {
-        return (DataSource) DataSourceBuilder.create()
-            .driverClassName("com.mysql.cj.jdbc.Driver")
-            .url("jdbc:mysql://127.0.0.1:3306/TeamUP_DB")
-            .username("xxxxxxxx")
-            .password("xxxxxxxx")
-            .build();
-    }
+	public DataSource datasource() {
+		return (DataSource) DataSourceBuilder.create()
+			.driverClassName("com.mysql.cj.jdbc.Driver")
+			.url("jdbc:mysql://127.0.0.1:3306/TeamUP_DB")
+			.username("xxxxxxxx")
+			.password("xxxxxxxx")
+			.build();
+	}
 	
 	@Bean
     public FilterRegistrationBean<CorsFilter> corsFilterRegistration() {
