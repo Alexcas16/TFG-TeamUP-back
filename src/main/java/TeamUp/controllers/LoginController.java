@@ -19,19 +19,19 @@ public class LoginController {
 	private UserService userService;
 	
 	@PostMapping("/tryLogin")
-    public ResponseData tryLogin(@RequestBody Map<String, String> loginRequest) {				
+	public ResponseData tryLogin(@RequestBody Map<String, String> loginRequest) {				
 		String username = loginRequest.get("username");
-        String password = loginRequest.get("password");
-        
-        return userService.validateLogin(username, password);
-    }
+		String password = loginRequest.get("password");
+		
+		return userService.validateLogin(username, password);
+	}
 	
 	@PostMapping("/register")
-    public ResponseData registrarUsuario(@RequestBody Map<String, String> registryRequest) {				
+	public ResponseData registrarUsuario(@RequestBody Map<String, String> registryRequest) {				
 		String username = registryRequest.get("username");
 		String email = registryRequest.get("email");
-        String password = registryRequest.get("password");
-        
-		return userService.registryUser(username, email, password);
-    }
+		String password = registryRequest.get("password");
+	
+	return userService.registryUser(username, email, password);
+	}
 }
