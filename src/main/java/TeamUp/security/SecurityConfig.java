@@ -20,20 +20,20 @@ public class SecurityConfig {
 	private UserAuthenticationEntryPoint userAuthenticationEntryPoint;
 	
 	@Autowired
-    private UserAuthenticationProvider userAuthenticationProvider;
-
-    @Bean
-    SecurityFilterChain securityFilterChainOwn(HttpSecurity http) throws Exception {
-        http
-                .exceptionHandling(handling -> handling.authenticationEntryPoint(userAuthenticationEntryPoint))
-                .addFilterBefore(new JwtAuthFilter(userAuthenticationProvider), BasicAuthenticationFilter.class)
-                .csrf(csrf -> csrf.disable())
-                .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(requests -> {
-                    requests.requestMatchers("/login/register", "/login/tryLogin").permitAll();
-                    requests.anyRequest().authenticated();
-                });
-        
-        return http.build();
-    }
+	private UserAuthenticationProvider userAuthenticationProvider;
+	
+	@Bean
+	SecurityFilterChain securityFilterChainOwn(HttpSecurity http) throws Exception {
+		http
+			.exceptionHandling(handling -> handling.authenticationEntryPoint(userAuthenticationEntryPoint))
+			.addFilterBefore(new JwtAuthFilter(userAuthenticationProvider), BasicAuthenticationFilter.class)
+			.csrf(csrf -> csrf.disable())
+			.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+			.authorizeHttpRequests(requests -> {
+				requests.requestMatchers("/login/register", "/login/tryLogin").permitAll();
+				requests.anyRequest().authenticated();
+			});
+		
+		return http.build();
+	}
 }
