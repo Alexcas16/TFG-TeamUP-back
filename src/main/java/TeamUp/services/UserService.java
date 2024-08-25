@@ -31,10 +31,10 @@ public class UserService {
 	private JuegoService juegoService;
 	
 	@PostConstruct
-    public void init() { // EVITAR DEPENDENCIAS CIRCULARES
+	public void init() { // EVITAR DEPENDENCIAS CIRCULARES
 		juegoService.setUserService(this);
-    }
-			
+	}
+		
 	// VARIABLES PARA LOGIN
 	private static final Integer CONSTASENYA_INCORRECTA = 4;
 	
@@ -50,7 +50,7 @@ public class UserService {
 				
 			} else { // 2. ASIGNAR TOKEN
 				String token = userAuthenticationProvider.createToken(user.getUsuario());
-	        		     
+				     
 				// 3. MANDAR TOKEN
 				res.getData().put("token", token);
 				
