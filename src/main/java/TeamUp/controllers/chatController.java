@@ -21,7 +21,6 @@ public class chatController {
 	@PostMapping("/crearChat")
     public ResponseData crearChat(@RequestBody Map<String, Object> data) throws Exception {				
 		String username = (String) data.get("username");
-		
 		Integer idPost = (Integer) data.get("postId");
 		Long idLong = idPost.longValue();
 		
@@ -31,7 +30,6 @@ public class chatController {
 	@PostMapping("/unirseGrupo")
     public ResponseData unirseGrupo(@RequestBody Map<String, Object> data) throws Exception {				
 		String username = (String) data.get("username");
-		
 		Integer idPost = (Integer) data.get("postId");
 		Long idLong = idPost.longValue();
 		
@@ -51,7 +49,6 @@ public class chatController {
 		Integer chatId = (Integer) data.get("chatId");
 		Integer userId = (Integer) data.get("userId");
 		String msg = (String) data.get("msg");
-		
 		Long chatIdLong = chatId.longValue();
 		Long userIdLong = userId.longValue();
 				
@@ -62,7 +59,6 @@ public class chatController {
     public ResponseData salirChat(@RequestBody Map<String, Object> data) throws Exception {		
 		Integer chatId = (Integer) data.get("chatId");
 		String userName = (String) data.get("userName");
-		
 		Long chatIdLong = chatId.longValue();
 				
 		return chatService.salirChat(chatIdLong, userName);
@@ -71,7 +67,6 @@ public class chatController {
 	@PostMapping("/mostrarParticipantes")
     public ResponseData mostrarParticipantes(@RequestBody Map<String, Object> data) throws Exception {		
 		Integer chatId = (Integer) data.get("chatId");
-		
 		Long chatIdLong = chatId.longValue();
 				
 		return chatService.mostrarParticipantes(chatIdLong);

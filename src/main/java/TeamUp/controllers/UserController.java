@@ -21,7 +21,6 @@ public class UserController {
 	@PostMapping("/addGame")
     public ResponseData addGame(@RequestBody Map<String, Object> data) throws Exception {				
 		String username = (String) data.get("user");
-		
 		Integer idJuego = (Integer) data.get("game_id");
 		Long idLong = idJuego.longValue();
 		

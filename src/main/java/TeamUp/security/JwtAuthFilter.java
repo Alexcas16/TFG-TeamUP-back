@@ -33,7 +33,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 httpServletResponse.getWriter().write("Token expirado");
                 return;
                 
-            } catch (RuntimeException e) { // RESTO DE EXCEPCIONES
+            } catch (RuntimeException e) { // EXCEPCIONES GENERALES
                 SecurityContextHolder.clearContext();
                 httpServletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 httpServletResponse.getWriter().write("Error en la autenticación");

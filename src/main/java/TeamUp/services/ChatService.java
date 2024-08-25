@@ -89,18 +89,18 @@ public class ChatService {
 				return res;
 			}
 		} else {// 4.- SI NO EXISTE, CREARLO
-			// 4.- PREPARAR PARTICIPANTES
+			// 4.1 - PREPARAR PARTICIPANTES
 			List<UsuarioEntity> participantes = new ArrayList<UsuarioEntity>();
 			participantes.add(user);
 			participantes.add(creador);
 			
 			// 5.- CREAR CHAT
 			ChatEntity newChat = new ChatEntity(
-					creador.getUsuario() + "_chat", 
-					"/images/chats/chat_pic_default.png", // DEFAULT
-					participantes, 
-					EnumTipoChat.CHAT, 
-					post
+				creador.getUsuario() + "_chat", 
+				"/images/chats/chat_pic_default.png", // DEFAULT
+				participantes,
+				EnumTipoChat.CHAT,
+				post
 			);
 			
 			// 6.- PERSISTIR CHAT
@@ -174,11 +174,12 @@ public class ChatService {
 				return res;
 			}
 		} else { // 4.- SI NO EXISTE, CREARLO
-			// 5.- PREPARAR PARTICIPANTES
+			// 4.1.- PREPARAR PARTICIPANTES
 			List<UsuarioEntity> participantes = new ArrayList<UsuarioEntity>();
 			participantes.add(user);
 			participantes.add(creador);
 			
+			// 5.- CREAR CHAT
 			ChatEntity newChat = new ChatEntity(
 					creador.getUsuario() + "_grupo", 
 					"/images/chats/group_pic_default.png", // DEFAULT
@@ -316,11 +317,11 @@ public class ChatService {
 					listaNombresUsuarios.add(user.getUsuario());
 				}
 				
-				res.setCode(EXITO); // 0
+				res.setCode(EXITO); // code 0
 				res.getData().put("usuarios", listaNombresUsuarios);
 				
 			} else {
-				res.setCode(CHAT_VACIO); // 3
+				res.setCode(CHAT_VACIO); // code 3
 			}
 		} else {
 			res.setCode(99); // ERROR NO CONTROLADO, NO EXISTE EL CHAT
@@ -331,7 +332,7 @@ public class ChatService {
 	private void parsearListaMensajes(List<MsgEntity> listaMensajes, Map<String, Object> data) {
 		List<Map<String, Object>> ListaMensajesFormateados = new ArrayList<>();
 		
-		for (MsgEntity msg : listaMensajes) { // ID, TIME, USERNAME, USERPIC
+		for (MsgEntity msg : listaMensajes) {
 			Map<String, Object> msgFormateado = new HashMap<>();
 			msgFormateado.put("id", msg.getId());
 			msgFormateado.put("time", msg.getTime_stamp());

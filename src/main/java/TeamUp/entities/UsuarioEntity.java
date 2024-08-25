@@ -24,41 +24,41 @@ import lombok.Setter;
 public class UsuarioEntity {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 	
 	@Column(unique = true)
-	private String usuario;
-	
+    private String usuario;
+
 	private String email;
 	
-	private String password_hash;
-	
-	private String img;
-	
-	@ManyToMany
-	@JoinTable(
-		name = "usuario_juego",
-		joinColumns = @JoinColumn(name = "usuario_id"),
-		inverseJoinColumns = @JoinColumn(name = "juego_id")
-	)
-	@OrderBy("id ASC")
-	private List<JuegoEntity> juegos_ids;
-	
-	@ManyToMany
-	@JoinTable(
-		name = "usuario_chat",
-		joinColumns = @JoinColumn(name = "usuario_id"),
-		inverseJoinColumns = @JoinColumn(name = "chat_id")
-	)
-	private List<ChatEntity> chats_ids;
-	
-	@OneToMany(
-		mappedBy="usuario_id",
-		cascade = CascadeType.ALL,
-		orphanRemoval = true
-	)
-	private List<PostEntity> posts;
+    private String password_hash;
+    
+    private String img;
+    
+    @ManyToMany
+    @JoinTable(
+        name = "usuario_juego",
+        joinColumns = @JoinColumn(name = "usuario_id"),
+        inverseJoinColumns = @JoinColumn(name = "juego_id")
+    )
+    @OrderBy("id ASC")
+    private List<JuegoEntity> juegos_ids;
+    
+    @ManyToMany
+    @JoinTable(
+        name = "usuario_chat",
+        joinColumns = @JoinColumn(name = "usuario_id"),
+        inverseJoinColumns = @JoinColumn(name = "chat_id")
+    )
+    private List<ChatEntity> chats_ids;
+    
+    @OneToMany(
+    		mappedBy="usuario_id",
+    		cascade = CascadeType.ALL,
+    		orphanRemoval = true
+    )
+    private List<PostEntity> posts;
     
     @OneToMany(
     		mappedBy="usuario_id",
@@ -78,7 +78,7 @@ public class UsuarioEntity {
     	this.usuario = usuario;
     	this.email = email;
     	this.password_hash = pass;
-    	this.img = "/images/users/profile_pic_default.png"; // UNICA FOTO HASTA LA FECHA
+    	this.img = "/images/users/profile_pic_default.png"; // POR DEFECTO
     	this.juegos_ids = new ArrayList<JuegoEntity>();
     	this.chats_ids = new ArrayList<ChatEntity>();
     	this.posts = new ArrayList<PostEntity>();

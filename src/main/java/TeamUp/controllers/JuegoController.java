@@ -28,7 +28,6 @@ public class JuegoController {
 	@PostMapping("/eliminarJuego")
     public ResponseData eliminarJuego(@RequestBody Map<String, Object> request) throws Exception {				
 		String username = (String) request.get("username");
-		
 		Integer id = (Integer) request.get("idJuego");
 		Long idJuego = id.longValue();
 		

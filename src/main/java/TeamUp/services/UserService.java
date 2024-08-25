@@ -31,10 +31,10 @@ public class UserService {
 	private JuegoService juegoService;
 	
 	@PostConstruct
-	public void init() { // EVITAR DEPENDENCIAS CIRCULARES
+    public void init() { // EVITAR DEPENDENCIAS CIRCULARES
 		juegoService.setUserService(this);
-	}
-		
+    }
+			
 	// VARIABLES PARA LOGIN
 	private static final Integer CONSTASENYA_INCORRECTA = 4;
 	
@@ -45,12 +45,12 @@ public class UserService {
 		try { // 1. OBTENER USUARIO
 			user = usuarioDAO.obtenerUsuarioPorNombre(userName);
 			
-			if(!PasswordManager.checkPassword(pass, user.getPassword_hash())) { // 3. ENTRA SI PASS INCORRECTA
-				res.setCode(CONSTASENYA_INCORRECTA); // CODE 2
+			if(!PasswordManager.checkPassword(pass, user.getPassword_hash())) { // 1.1.- ENTRA SI PASS INCORRECTA
+				res.setCode(CONSTASENYA_INCORRECTA); // code 2
 				
 			} else { // 2. ASIGNAR TOKEN
 				String token = userAuthenticationProvider.createToken(user.getUsuario());
-				     
+	        		     
 				// 3. MANDAR TOKEN
 				res.getData().put("token", token);
 				
@@ -89,7 +89,7 @@ public class UserService {
 			res.setCode(0);
 			res.getData().put("token", token);
 			
-		} catch (TeamUPexception e) { //USER O EMAIL YA EXISTEN
+		} catch (TeamUPexception e) { // USER O EMAIL YA EXISTEN
 			e.printStackTrace();
 			res.setCode(e.getCodigoError().getCodigo());
 		
@@ -110,19 +110,19 @@ public class UserService {
 	
 	public ResponseData addGame(String username, Long idLong) throws Exception {
 		ResponseData res = new ResponseData();
-		res.setCode(0); // Éxito por defecto
+		res.setCode(0); // EXITO
 		
-		// 1.- Obtener user
+		// 1.- OBTENER USER
 		UsuarioEntity user = findUserByName(username);
 		
-		// 2.- Obtener juego
+		// 2.- OBTENER JUEGO
 		JuegoEntity juego = juegoService.findGameById(idLong);
 		
-		// 3.- Actualizar lista de juego y persistir
+		// 3.- ACTUALIZAR Y PERSISTIR
 		user.getJuegos_ids().add(juego);
 		usuarioDAO.updateUser(user);
 		
-		// 4.- Preparar info para front
+		// 4.- PARSEAR INFO
 		Map<String, Object> juegoFormateado = new HashMap<String, Object>();
 		juegoFormateado.put("id", juego.getId());
 		juegoFormateado.put("img", juego.getImg());
@@ -137,14 +137,8 @@ public class UserService {
 		usuarioDAO.updateUser(user);
 	}
 	
-	/**
-	 * @param info
-	 * @param user
-	 * Funcion auxiliar para que quede mas limpio.
-	 * @return info
-	 */
 	private void rellenarInfoUsuario(Map<String,Object> info, UsuarioEntity user) {
-		// 4.1- Juegos
+		// 4.1- JUEGOS
 		List<Map<String, Object>> juegos = new ArrayList<>();
 		for (JuegoEntity juego : user.getJuegos_ids()) {
 		    Map<String, Object> juegoTuple = new HashMap<>();
@@ -154,7 +148,7 @@ public class UserService {
 		}
 		info.put("juegos", juegos);
 		
-		// 4.2- Chats
+		// 4.2- CHATS
 		List<Map<String, Object>> chats = new ArrayList<>();
 		for (ChatEntity chat : user.getChats_ids()) {
 		    Map<String, Object> chatTriple = new HashMap<>();
@@ -165,13 +159,13 @@ public class UserService {
 		}
 		info.put("chats", chats);
 		
-		// 4.3- Usuario
+		// 4.3- NOMBRE
 		info.put("userName", user.getUsuario());
 		
-		// 4.4- Img
+		// 4.4- IMG
 		info.put("img", user.getImg());
 		
-		// 4.5- userId
+		// 4.5- ID
 		info.put("userId", user.getId());
 	}
 }

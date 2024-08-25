@@ -21,13 +21,10 @@ public class PostController {
 	
 	@PostMapping("/sendPost")
     public ResponseData sendPost(@RequestBody Map<String, Object> data) throws Exception {				
-		String username = (String) data.get("user");
-		
+		String username = (String) data.get("user");		
         Integer id = (Integer) data.get("game");
         Long idLong = id.longValue();
-        
         String text = (String) data.get("text");
-        
         Integer numParticipantes = (Integer) data.get("numParticipantes");
         
         Integer type = (numParticipantes == 0) ? EnumTipoChat.POST.getValue() : (numParticipantes >= 2) ? EnumTipoChat.GROUP.getValue() : EnumTipoChat.CHAT.getValue() ;

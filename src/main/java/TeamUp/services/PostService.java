@@ -95,7 +95,7 @@ public class PostService {
 	private void rellenaInformacionPostst(Map<String, Object> info, List<PostEntity> listaPost) {
 		List<Map<String, Object>> ListaPostsFormateados = new ArrayList<>();
 		
-		for (PostEntity post : listaPost) { // ID, IMG, USERNAME, TEXTO, TIPO
+		for (PostEntity post : listaPost) {
 			Map<String, Object> postFormateado = new HashMap<>();
 			postFormateado.put("id", post.getId());
 			postFormateado.put("img", post.getUsuario_id().getImg());

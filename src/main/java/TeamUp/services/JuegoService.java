@@ -74,7 +74,7 @@ public class JuegoService {
 	private void rellenaInformacionJuegos(Map<String, Object> info, List<JuegoEntity> listaJuegos) {
 		List<Map<String, Object>> ListaJuegosFormateados = new ArrayList<>();
 		
-		for (JuegoEntity juego : listaJuegos) { // ID, NOMBRE, IMG
+		for (JuegoEntity juego : listaJuegos) {
 			Map<String, Object> juegoFormateado = new HashMap<>();
 			juegoFormateado.put("id", juego.getId());
 			juegoFormateado.put("nombre", juego.getNombre());
